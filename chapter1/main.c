@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 #include "util.h"
+#include "prog1.h"
+#include "slp.h"
 
 typedef struct tree *T_tree;
 struct tree { T_tree left; string key; T_tree right; };
@@ -31,15 +33,40 @@ void printTree(T_tree t) {
     printTree(t->right);
 }
 
+int maxargs(A_stm stm)
+{
+    switch (stm->kind)
+    {
+    case A_printStm:
+    {
+        A_expList exp_list = stm->u.print.exps;
+        int count = 0;
+        while (exp_list->kind == A_pairExpList)
+        {
+            exp_list = exp_list->u.pair.tail;
+            count++;
+        }
+        count++;
+
+        return count;
+    }
+    case A_compoundStm:
+    {
+        int count1 = maxargs(stm->u.compound.stm1);
+        int count2 = maxargs(stm->u.compound.stm2);
+        printf("%d %d\n", count1, count2);
+        return count1 > count2 ? count1 : count2;
+    }
+    
+    default:
+        return 0;
+    }
+}
+
 int main()
 {
-    T_tree root = NULL;
-    root = insert("t", root);
-    root = insert("s", root);
-    root = insert("p", root);
-    root = insert("i", root);  // 不会重复插入
-
-    printTree(root);
+    int args_count = maxargs(prog());
+    printf("print 语句参数最多为：%d\n", args_count);
 
 	return 0;
 }

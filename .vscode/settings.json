@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "util.h": "c",
-        "assert.h": "c"
+        "assert.h": "c",
+        "prog1.h": "c"
     }
 }
