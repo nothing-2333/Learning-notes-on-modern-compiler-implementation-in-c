@@ -1,0 +1,11 @@
+while (1)
+{
+    var a = 0;
+    if (a > 5) a++;
+
+    for (;;)
+    {
+        a += 5;
+        break;
+    }
+}

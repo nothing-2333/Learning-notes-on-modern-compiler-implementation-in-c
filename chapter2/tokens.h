@@ -1,8 +1,10 @@
-typedef union  {
+#pragma once
+
+typedef union {
 	int pos;
 	int ival;
 	string sval;
-	} YYSTYPE;
+} YYSTYPE;
 extern YYSTYPE yylval;
 
 # define ID 257
